@@ -32,7 +32,10 @@
     "start:client": "yarn workspace client start:dev",
     "start:game": "run-s wait:node deploy:contracts add:planets start:client",
     "add:planets": "yarn workspace eth hardhat:dev game:createPlanets",
-    "start": "run-p start:node start:game"
+    "start": "run-p start:node start:game",
+    "tunnel": "node tunnel.js >> client/.env",
+    "start:tunnel": "run-p tunnel start:node start:game",
+    "start:tunnel:prod": "run-p tunnel start:node"
   },
   "devDependencies": {
     "@types/color": "^3.0.2",
@@ -42,5 +45,9 @@
   },
   "resolutions": {
     "ts-node": "9.1.1"
+  },
+  "dependencies": {
+    "localtunnel": "^2.0.2",
+    "opn": "^6.0.0"
   }
 }
