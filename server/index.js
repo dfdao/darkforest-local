@@ -1,6 +1,6 @@
 // On POST with url, parse address and drip from mnemonic
 
-const DEPLOYER_MNEMONIC = 'change typical hire slam amateur loan grid fix drama electric seed label';
+const privKey = '0x044C7963E9A89D4F8B64AB23E02E97B2E00DD57FCB60F316AC69B77135003AEF'
 
 const express = require('express')
 const ethers = require('ethers');
@@ -17,11 +17,11 @@ app.get('/', async (req, res) => {
 
     const address = req.query.address;
     const rpc = req.query.rpc;
-    const ether = req.query.ether ? req.query.ether : '20';
+    const ether = req.query.ether ? req.query.ether : '100';
     const provider = new ethers.providers.JsonRpcProvider(rpc);
     if(ethers.utils.isAddress(address) && provider) {
         try {
-            let wallet = ethers.Wallet.fromMnemonic(DEPLOYER_MNEMONIC);
+            let wallet = new ethers.Wallet(privKey);
             wallet = wallet.connect(provider);
             const tx = await wallet.sendTransaction({
                 to: address,

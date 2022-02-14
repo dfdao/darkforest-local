@@ -32,10 +32,13 @@
     "start:client": "yarn workspace client start:dev",
     "start:game": "run-s wait:node deploy:contracts add:planets start:client",
     "add:planets": "yarn workspace eth hardhat:dev game:createPlanets",
-    "start": "run-p start:node start:game",
+    "start": "run-p start:node start:game start:server",
     "tunnel": "node tunnel.js >> client/.env",
     "start:tunnel": "run-p tunnel start:node start:game",
-    "start:tunnel:prod": "run-p tunnel start:node"
+    "start:tunnel:prod": "run-p tunnel start:node",
+    "start:server": "node server/index.js",
+    "contracts": "run-s wait:node deploy:contracts",
+    "start:hosted": "run-p start:node contracts start:server"
   },
   "devDependencies": {
     "@types/color": "^3.0.2",
@@ -48,6 +51,7 @@
   },
   "dependencies": {
     "localtunnel": "^2.0.2",
+    "netlify-cli": "^9.3.0",
     "opn": "^6.0.0"
   }
 }
