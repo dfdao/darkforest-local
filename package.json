@@ -36,6 +36,7 @@
     "start:client": "yarn workspace client start",
     "start:node": "yarn workspace eth hardhat:node",
     "start:game": "run-s wait:node deploy:contracts add:planets start:client",
+    "start:arena": "run-s wait:node deploy:contracts:arena start:client",
     "add:planets": "yarn workspace eth hardhat:dev game:createPlanets",
     "start": "run-p start:node start:game",
     "clean:workspaces": "yarn workspaces run clean",
