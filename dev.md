@@ -5,6 +5,7 @@
 3. `git submodule update --init --recursive`
 4. Manually check out the `arena` branch of `client`, `eth`, and `packages` OR use the utility script:
     `sh checkout.sh arena`
+5. `yarn`
 5. If you want a different RPC provider for the client, create a `.env` file that is a copy of `.env.example` and update `DEFAULT_RPC` accordingly.
 5. `yarn start:client`
 
