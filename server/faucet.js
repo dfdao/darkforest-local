@@ -25,16 +25,19 @@ const wallet = new ethers.Wallet(pKey, provider);
 
 const faucet = new ethers.Contract(FAUCET_ADDRESS, FAUCET_ABI, wallet);
 
+const logStats = async function () {
+    const balance = await faucet.getBalance();
+    console.log(`faucet owner`, await faucet.getOwner());
+    console.log(`faucet balance`, ethers.utils.formatEther(balance));
+    console.log(`faucet drip`, ethers.utils.formatEther(await faucet.getDripAmount()));
+}
 const sendDrip = async function (addresss) {
   const balance = await faucet.getBalance();
-  console.log(`faucet balance`, ethers.utils.formatEther(balance));
   console.log();
   if (balance.lte(1)) {
     const eth = '20';
     throw new Error('balance too low');
   }
-  console.log('owner', await faucet.getOwner());
-  console.log('sender', faucet.signer.address);
   console.log(`player balance`, ethers.utils.formatEther(await provider.getBalance(addresss)));
   const dripTx = await faucet.drip(addresss);
   await dripTx.wait();
@@ -62,11 +65,13 @@ app.get('/drip/:address', async (req, res) => {
     await sendDrip(address);
     res.status(200).send();
   } catch (error) {
-    res.status(500).send(error);
+    console.log('sendDrip error', error);
+    res.status(500).send(JSON.stringify(error));
   }
   return;
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`dfdao faucet listening on port ${port}`);
+  await logStats();
 });
