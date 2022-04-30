@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { FAUCET_ADDRESS } from '@darkforest_eth/contracts';
+// import { FAUCET_ADDRESS } from '@darkforest_eth/contracts';
 import FAUCET_ABI from './DFArenaFaucetABI.js';
 
 import 'dotenv/config';
