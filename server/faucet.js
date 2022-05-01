@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 // import { FAUCET_ADDRESS } from '@darkforest_eth/contracts';
-import FAUCET_ABI from './DFArenaFaucetABI.js';
+import FAUCET_ABI from './DFArenaFaucet.js';
 
 import 'dotenv/config';
 import express from 'express';
@@ -28,6 +28,7 @@ const wallet = new ethers.Wallet(pKey, provider);
 const faucet = new ethers.Contract(FAUCET_ADDRESS, FAUCET_ABI, wallet);
 
 const logStats = async function () {
+    console.log('server booting up at', new Date().toUTCString());
     console.log('faucet address', FAUCET_ADDRESS);
     console.log(`faucet owner`, await faucet.getOwner());
     const balance = await faucet.getBalance();
@@ -41,13 +42,14 @@ const sendDrip = async function (addresss) {
     const eth = '20';
     throw new Error('balance too low');
   }
-  console.log(`player balance`, ethers.utils.formatEther(await provider.getBalance(addresss)));
+  console.log(`${addresss} balance`, ethers.utils.formatEther(await provider.getBalance(addresss)));
   const dripTx = await faucet.drip(addresss);
   await dripTx.wait();
   console.log(
-    `player balance after drip`,
+    `${addresss} balance after drip`,
     ethers.utils.formatEther(await provider.getBalance(addresss))
   );
+  console.log(`faucet balance after drip`, ethers.utils.formatEther(balance));
 };
 
 const app = express();
@@ -61,9 +63,14 @@ app.get('/', async (req, res) => {
 app.get('/drip/:address', async (req, res) => {
   let address = req.params.address;
 
-  if (!ethers.utils.isAddress(req.params.address))
-    res.status(500).send(`address ${req.params.address} is not valid`);
+  console.log('requesting drip at', new Date().toUTCString());
 
+  if (!ethers.utils.isAddress(req.params.address)) {
+    res.status(500).send(`address ${req.params.address} is not valid`);
+    console.log(`address ${req.params.address} is not valid`);
+    
+    return;
+  }
   try {
     await sendDrip(address);
     res.status(200).send();
