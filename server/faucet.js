@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import { FAUCET_ADDRESS } from '@darkforest_eth/contracts';
-import FAUCET_ABI from './DFArenaFaucetABI.js';
+import FAUCET_ABI from './DFArenaFaucet.js';
 
 import 'dotenv/config';
 import express from 'express';
@@ -14,7 +14,7 @@ const HARDHAT = 'http://localhost:8545';
 const provider =
   process.env.MODE == 'development'
     ? new ethers.providers.JsonRpcProvider(HARDHAT)
-    : new ethers.providers.JsonRpcProvider(GNOSIS);
+    : new ethers.providers.JsonRpcProvider(GNOSIS_OPTIMISM);
 
 const pKey =
   process.env.MODE == 'development' ? process.env.DEV_PRIVATE_KEY : process.env.PROD_PRIVATE_KEY;
@@ -26,8 +26,9 @@ const wallet = new ethers.Wallet(pKey, provider);
 const faucet = new ethers.Contract(FAUCET_ADDRESS, FAUCET_ABI, wallet);
 
 const logStats = async function () {
-    const balance = await faucet.getBalance();
+    console.log('faucet address', FAUCET_ADDRESS);
     console.log(`faucet owner`, await faucet.getOwner());
+    const balance = await faucet.getBalance();
     console.log(`faucet balance`, ethers.utils.formatEther(balance));
     console.log(`faucet drip`, ethers.utils.formatEther(await faucet.getDripAmount()));
 }
