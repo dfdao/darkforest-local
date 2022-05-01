@@ -7,6 +7,8 @@ import express from 'express';
 
 import cors from 'cors';
 
+const FAUCET_ADDRESS = '0x58E0C68ec2f0B770F9000b3e26e5D760591c58Ad';
+
 const GNOSIS = 'https://rpc.xdaichain.com/';
 const GNOSIS_OPTIMISM = 'https://optimism.gnosischain.com';
 const HARDHAT = 'http://localhost:8545';
@@ -14,7 +16,7 @@ const HARDHAT = 'http://localhost:8545';
 const provider =
   process.env.MODE == 'development'
     ? new ethers.providers.JsonRpcProvider(HARDHAT)
-    : new ethers.providers.JsonRpcProvider(GNOSIS);
+    : new ethers.providers.JsonRpcProvider(GNOSIS_OPTIMISM);
 
 const pKey =
   process.env.MODE == 'development' ? process.env.DEV_PRIVATE_KEY : process.env.PROD_PRIVATE_KEY;
@@ -26,8 +28,9 @@ const wallet = new ethers.Wallet(pKey, provider);
 const faucet = new ethers.Contract(FAUCET_ADDRESS, FAUCET_ABI, wallet);
 
 const logStats = async function () {
-    const balance = await faucet.getBalance();
+    console.log('faucet address', FAUCET_ADDRESS);
     console.log(`faucet owner`, await faucet.getOwner());
+    const balance = await faucet.getBalance();
     console.log(`faucet balance`, ethers.utils.formatEther(balance));
     console.log(`faucet drip`, ethers.utils.formatEther(await faucet.getDripAmount()));
 }
