@@ -11,6 +11,7 @@
     "packages/hashing",
     "packages/snarks",
     "packages/settings",
+    "packages/whitelist",
     "eth",
     "packages/contracts",
     "packages/constants",
@@ -26,7 +27,7 @@
     "client"
   ],
   "scripts": {
-    "prepare": "yarn workspaces run prepare",
+    "prepare": "yarn workspaces run build",
     "test": "yarn workspaces run test",
     "lint": "yarn workspaces run lint",
     "format": "yarn workspaces run format",

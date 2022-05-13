@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "exit 0",
-    "start": "node faucet.js >> logs.txt"
+    "build": "exit 0",
+    "start": "node faucet.js >> logs.txt",
+    "clean": "exit 0"
   },
   "author": "",
   "license": "ISC",
