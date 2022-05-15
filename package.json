@@ -26,7 +26,7 @@
     "client"
   ],
   "scripts": {
-    "prepare": "yarn workspaces run prepare",
+    "prepare": "yarn workspaces run build",
     "test": "yarn workspaces run test",
     "lint": "yarn workspaces run lint",
     "format": "yarn workspaces run format",
