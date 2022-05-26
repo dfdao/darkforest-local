@@ -23,6 +23,8 @@ Yarn places all of the packages for each submodule in the top level `node_module
 1. Fork [darkforest-local](https://github.com/projectsophon/darkforest-local) to your GitHub account
 2. `git clone --recurse-submodules https://github.com/<your_name>/darkforest-local.git`
 3. If you didn't clone with `--recurse-submodules` or already have a cloned version: `git submodule update --init --recursive`
+4. `git checkout arena`
+4. `sh checkout.sh arena` (this will check out the arena branches for `eth`, `packages`, and `client`)
 4. `yarn`
 5. `yarn start`
 
