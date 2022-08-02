@@ -20,13 +20,13 @@ Yarn places all of the packages for each submodule in the top level `node_module
 * Install [Yarn](https://classic.yarnpkg.com/en/docs/install)
 
 ### Quickstart for running a local Arena game
-1. Fork [darkforest-local](https://github.com/projectsophon/darkforest-local) to your GitHub account
-2. `git clone --recurse-submodules https://github.com/<your_name>/darkforest-local.git`
-3. If you didn't clone with `--recurse-submodules` or already have a cloned version: `git submodule update --init --recursive`
-4. `git checkout arena`
-4. `sh checkout.sh arena` (this will check out the arena branches for `eth`, `packages`, and `client`)
-4. `yarn`
-5. `yarn start`
+1. Fork [darkforest-local](https://github.com/dfdao/darkforest-local) to your GitHub account
+2. `git clone https://github.com/<your_name>/darkforest-local.git`
+3. `git checkout arena`
+4. `git submodule update --init --recursive`
+5. `sh checkout.sh arena` (this will check out the arena branches for `eth`, `packages`, and `client`)
+6. `yarn`
+7. `yarn start`
 
 ### If you plan to make changes to `darkforest-local`
 1. Fork [darkforest-local](https://github.com/projectsophon/darkforest-local) to your GitHub account
@@ -35,7 +35,8 @@ Yarn places all of the packages for each submodule in the top level `node_module
 4. Fork [darkforest-eth/circuits](https://github.com/darkforest-eth/circuits) to your GitHub account
 5. Fork [darkforest-eth/packages](https://github.com/darkforest-eth/packages) to your GitHub account
 4. Clone your darkforest-local repo: `git clone https://github.com/<your_name>/darkforest-local.git`
-5. Update the `.gitmodules` file to point to your new forks of `eth`, `client`, `circuits`, and `packages` 
+5. Checkout the arena branch: `git checkout arena`
+6. Update the `.gitmodules` file to point to your new forks of `eth`, `client`, `circuits`, and `packages` 
     ex: 
     * `url = https://github.com/darkforest-eth/eth` => `url = https://github.com/cha0sg0d/eth`
     * `url = https://github.com/darkforest-eth/client` => `url = https://github.com/cha0sg0d/client`
