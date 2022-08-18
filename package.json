@@ -33,6 +33,7 @@
     "format": "yarn workspaces run format",
     "deploy:contracts": "yarn workspace eth hardhat:dev deploy --whitelist false",
     "deploy:contracts:arena": "yarn workspace eth hardhat:dev arena:deploy --faucet true --fund 5",
+    "deploy:contracts:arena:subgraph": "yarn workspace eth hardhat:dev arena:deploy --faucet true --fund 5 --subgraph df",
     "deploy:contracts:arena:gnosis_optimism:prod": "yarn workspace eth hardhat:go arena:deploy --faucet true --fund 1",
     "deploy:contracts:arena:kovan_optimism:prod": "yarn workspace eth hardhat:ko arena:deploy --faucet true --fund 1",
     "deploy:client": "netlify build && netlify deploy",
@@ -44,9 +45,10 @@
     "start:faucet": "yarn workspace faucet start",
     "start:node": "yarn workspace eth hardhat:node",
     "start:arena": "run-s wait:node deploy:contracts:arena start:client",
+    "start:subgraph": "run-s wait:node deploy:contracts:arena:subgraph start:client",
     "start:game": "run-s wait:node deploy:contracts add:planets start:client",
     "add:planets": "yarn workspace eth hardhat:dev game:createPlanets",
-    "start": "run-p start:node start:game",
+    "start": "run-p start:node start:arena",
     "clean:workspaces": "yarn workspaces run clean",
     "clean:self": "del-cli node_modules/",
     "clean": "run-s clean:workspaces clean:self"
@@ -58,5 +60,8 @@
   },
   "resolutions": {
     "ts-node": "9.1.1"
+  },
+  "dependencies": {
+    "npmrc": "^1.1.1"
   }
 }
